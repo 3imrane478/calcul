@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fake Calculator</title>
+
+<style>
+body {
+  background: radial-gradient(circle at top, #101018, #050505);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Segoe UI, Arial, sans-serif;
+}
+
+/* Aura Glow */
+.aura {
+  padding: 18px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, #4f8cff, #7a5cff, #2bd4ff);
+  filter: blur(25px);
+  position: absolute;
+  width: 390px;
+  height: 620px;
+  z-index: 0;
+  opacity: 0.65;
+}
+
+/* Calculator Box */
+.calc {
+  width: 360px;
+  background: #181818;
+  padding: 20px;
+  border-radius: 22px;
+  box-shadow: 0 0 35px rgba(0,0,0,0.9);
+  position: relative;
+  z-index: 1;
+}
+
+/* Screen */
+.screen {
+  width: 100%;
+  height: 90px;
+  background: #0e0e0e;
+  color: white;
+  font-size: 24px;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: right;
+  margin-bottom: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Buttons Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* Buttons */
+button {
+  height: 62px;
+  font-size: 20px;
+  background: #262626;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.12s ease;
+}
+
+button:hover {
+  background: #343434;
+  transform: scale(1.03);
+}
+
+.equal {
+  background: #4f8cff;
+  font-weight: bold;
+}
+
+.equal:hover {
+  background: #6aa0ff;
+}
+
+.top {
+  background: #333;
+}
+</style>
+</head>
+<body>
+
+<div class="aura"></div>
+
+<div class="calc">
+  <input id="screen" class="screen" disabled>
+
+  <div class="grid">
+    <button class="top" onclick="clearScreen()">C</button>
+    <button class="top" onclick="backspace()">⌫</button>
+    <button class="top" onclick="press('(')">(</button>
+    <button class="top" onclick="press(')')">)</button>
+
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="press('/')">÷</button>
+
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('*')">×</button>
+
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('-')">−</button>
+
+    <button onclick="press('0')">0</button>
+    <button onclick="press('.')">.</button>
+    <button onclick="fakeResult()" class="equal">=</button>
+    <button onclick="press('+')">+</button>
+  </div>
+</div>
+
+<script>
+let screen = document.getElementById("screen");
+let lastWasResult = false;
+
+const fakeSteps = [
+  "calculating imran paff height...",
+  "calculating atmosphere 9lawi...",
+  "processing numbers...",
+  "almost finished...",
+  "idk go use calc"
+];
+
+function press(value) {
+  if (lastWasResult) {
+    screen.value = "";
+    lastWasResult = false;
+  }
+  screen.value += value;
+}
+
+function clearScreen() {
+  screen.value = "";
+  lastWasResult = false;
+}
+
+function backspace() {
+  screen.value = screen.value.slice(0, -1);
+}
+
+function fakeResult() {
+  lastWasResult = true;
+  let i = 0;
+
+  function nextStep() {
+    if (i < fakeSteps.length) {
+      screen.value = fakeSteps[i];
+      i++;
+      setTimeout(nextStep, 950);
+    }
+  }
+
+  nextStep();
+}
+</script>
+
+</body>
+</html>
